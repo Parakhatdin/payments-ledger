@@ -1,0 +1,4 @@
+reference,net,currency
+pi_demo_1,96.80,EUR
+pi_demo_2,48.00,EUR
+pi_not_in_ledger,25.00,EUR
