@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: payments-ledger
+  jpa:
+    open-in-view: false            # no lazy loading from controllers; transactions end in the service layer
+    hibernate:
+      ddl-auto: validate           # Flyway owns the schema; Hibernate only checks it matches the entities
+
+ledger:
+  stripe:
+    # Signing secret of the Stripe webhook endpoint (Dashboard → Developers → Webhooks).
+    webhook-secret: ${STRIPE_WEBHOOK_SECRET:whsec_local_development_only}
+    signature-tolerance: 5m        # reject signed requests older than this (replay protection)
+  webhooks:
+    worker:
+      enabled: true
+      poll-interval: 1s
+      batch-size: 20
+      max-attempts: 5
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
